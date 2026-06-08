@@ -1,6 +1,6 @@
-// ======================== GRAMMAR DATA (All 5 Sets) ========================
+// ======================== GRAMMAR DATA (ALL 5 SETS) ========================
 const grammarData = {
-    1: { // Set 1 – From uploaded document
+    1: {
         questions: [
             "The crew ________ the deck every morning.",
             "The ship will leave the port ________ 5 p.m.",
@@ -47,7 +47,7 @@ const grammarData = {
         ],
         answers: ["b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b"]
     },
-    2: { // Set 2
+    2: {
         questions: [
             "The chief officer ________ the cargo log every evening.",
             "The vessel is scheduled to dock ________ Friday morning.",
@@ -94,7 +94,7 @@ const grammarData = {
         ],
         answers: ["b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b"]
     },
-    3: { // Set 3
+    3: {
         questions: [
             "The cook ________ fresh meals for the crew daily.",
             "Our ship departed from the harbor ________ dawn.",
@@ -141,7 +141,7 @@ const grammarData = {
         ],
         answers: ["b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b"]
     },
-    4: { // Set 4
+    4: {
         questions: [
             "The oil tanker ________ across the Atlantic every month.",
             "The next safety drill is scheduled ________ June 15th.",
@@ -188,7 +188,7 @@ const grammarData = {
         ],
         answers: ["b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b","b"]
     },
-    5: { // Set 5
+    5: {
         questions: [
             "The pumpman ________ the ballast tanks before loading cargo.",
             "The morning shift begins exactly ________ 0800 hours.",
@@ -237,7 +237,7 @@ const grammarData = {
     }
 };
 
-// ======================== READING DATA (5 Sets) ========================
+// ======================== READING DATA (ALL 5 SETS) ========================
 const readingData = {
     1: {
         passages: [
@@ -291,40 +291,283 @@ const readingData = {
     }
 };
 
-// ======================== LISTENING DATA (5 Sets) ========================
-const listeningSets = {
-    1: { title: "VHF Call – Entering Port",
-         transcript: "Port Control: 'M/V Sea Queen, this is Port Control. Reduce speed to 5 knots. Proceed to berth 7. Berth 7 is clear.' Captain: 'Sea Queen roger. Reducing to 5 knots.'",
-         questions: ["The vessel's name is Sea Queen.", "Port Control asked to increase speed.", "Berth 7 is occupied.", "The captain acknowledged the instruction.", "The ship is leaving the port."],
-         answers: ["T","F","F","T","F"] },
-    2: { title: "Fire Drill Announcement",
-         transcript: "Attention all crew. This is a fire drill. Fire in the engine room. All personnel must go to muster station A on the boat deck. Do not use elevators. Fire team A, proceed to engine room with extinguishers.",
-         questions: ["The fire is in the galley.", "Crew must go to muster station A.", "Fire team A uses extinguishers.", "Elevators can be used during drill.", "The announcement is a real emergency."],
-         answers: ["F","T","T","F","F"] },
-    3: { title: "Man Overboard Procedure",
-         transcript: "Bridge to all hands: Man overboard on starboard side. Release the lifebuoy with light and smoke. Start Williamson turn. Engine room: full stop. Deck crew: prepare rescue boat.",
-         questions: ["Man overboard on port side.", "Lifebuoy with light and smoke to be released.", "Williamson turn is used for rescue.", "Deck crew must prepare the rescue boat.", "Engine room is ordered to go full ahead."],
-         answers: ["F","T","T","T","F"] },
-    4: { title: "Safety Briefing Before Bunkering",
-         transcript: "Chief Officer: Before bunkering, all scuppers must be plugged. No smoking near the bunker station. Fire extinguisher ready. Sound fuel tank levels every 15 minutes.",
-         questions: ["Scuppers must be open during bunkering.", "Smoking is allowed 10 meters away.", "Fire extinguisher must be ready.", "Fuel tank levels checked every 30 minutes.", "The briefing is given by the Chief Officer."],
-         answers: ["F","F","T","F","T"] },
-    5: { title: "Navigation Warning – Fog",
-         transcript: "Captain to OOW: Heavy fog reported 5 miles ahead. Reduce speed to slow ahead. Switch on radar and sound fog horn every two minutes. Keep a sharp lookout on the bow.",
-         questions: ["Fog is reported 5 miles ahead.", "Speed should be increased.", "Radar must be switched on.", "Fog horn is sounded every 5 minutes.", "Lookout is not required in fog."],
-         answers: ["T","F","T","F","F"] }
+// ======================== WRITING DATA (ALL 5 SETS) ========================
+const writingSets = {
+    1: {
+        part1: {
+            A: { title: "Hand Tool Safety Incident", task: "Write a message to your friend about using tools safely on deck. Include: What broken tool you saw, who you reported it to, why fixing tools quickly is important, what safety rule you remembered." },
+            B: { title: "Cold Weather Challenge", task: "Write a message to your friend about working in cold weather during your watch. Include: How you felt in the freezing wind, what heavy clothes or drinks helped you, why cold weather is normal on North routes, what gear you hope to wear next time." }
+        },
+        part2: {
+            A: { title: "Keeping the Deck Clean", task: "Write about how you will maintain housekeeping and cleanliness on deck. You should say: How you feel about cleaning oily surfaces, what cleaning tasks you want to focus on first, how keeping the deck clear helps you avoid slipping, why a clean workspace supports overall ship safety." },
+            B: { title: "Learning Ship Routines", task: "Write about how you will adapt to the daily work schedule on board. You should say: How you feel about waking up early for watches, what daily routines you hope to master first, how you will show dedication and follow your supervisor's orders, why learning the ship routine quickly is helpful for new crew." }
+        }
+    },
+    2: {
+        part1: {
+            A: { title: "Missing Safety Sign", task: "Write a message to your friend about a wet floor without a warning sign. Include: What slippery area you found, who you informed to get a sign, why warning signs are important on a moving ship, what you learned about keeping walkways safe." },
+            B: { title: "Engine Room Noise Challenge", task: "Write a message to your friend about dealing with loud machinery noise. Include: How you felt when you first entered the noisy engine room, what ear protection helped you, why high noise levels are normal near generators, how you hope to protect your hearing next time." }
+        },
+        part2: {
+            A: { title: "Garbage Management at Sea", task: "Write about how you will sort and manage waste on the vessel. You should say: How you feel about separating plastics from food waste, what types of garbage bins you want to check first, how following MARPOL rules helps you avoid ocean pollution, why proper waste management supports a clean marine environment." },
+            B: { title: "Communicating with Port Authorities", task: "Write about how you will use English to talk with port control. You should say: How you feel about speaking English on the VHF radio, what standard phrases you hope to practice first, how you will show professionalism and speak clearly, why clear radio communication is helpful for a smooth arrival." }
+        }
+    },
+    3: {
+        part1: {
+            A: { title: "Loose Mooring Rope", task: "Write a message to your friend about an unsecure line on deck. Include: What loose rope you noticed during arrival, who you told about the line, why tight ropes are important for secure docking, what you learned about mooring deck hazards." },
+            B: { title: "Extreme Heat Challenge", task: "Write a message to your friend about working in a very hot environment. Include: How you felt working under the tropical sun, what drinking water or rest breaks helped you, why high temperatures are normal in the boiler room, how you hope to stay hydrated next time." }
+        },
+        part2: {
+            A: { title: "Emergency Drill Readiness", task: "Write about how you will prepare for weekly emergency drills. You should say: How you feel when the emergency alarm sounds, what emergency gear you want to locate first, how knowing your muster station helps you avoid confusion, why regular drill practice supports team survival during a real crisis." },
+            B: { title: "Cultural Diversity on Board", task: "Write about how you will work with crew members from different countries. You should say: How you feel about living with an international crew, what cultural traditions you hope to learn about first, how you will show respect and share your own customs, why mutual respect among different cultures is helpful for a peaceful ship." }
+        }
+    },
+    4: {
+        part1: {
+            A: { title: "Blocked Emergency Exit", task: "Write a message to your friend about boxes blocking a hallway escape route. Include: What blocked door or exit you found, who you asked to clear the passage, why clear exit routes are important during fires, what you learned about keeping escape paths free." },
+            B: { title: "Homesickness Challenge", task: "Write a message to your friend about feeling lonely during your first month. Include: How you felt being far away from your family, what video calls or hobbies helped you feel better, why homesickness is normal for new seafarers, how you hope to stay positive on the next voyage." }
+        },
+        part2: {
+            A: { title: "Safe Chemical Handling", task: "Write about how you will use chemicals safely for cleaning or maintenance. You should say: How you feel about wearing gloves and goggles, what safety data sheets (SDS) you want to read first, how checking labels helps you avoid chemical burns, why using protective equipment supports a hazard-free engine room." },
+            B: { title: "Sharing Cabin Space", task: "Write about how you will share a small living cabin with a roommate. You should say: How you feel about living in a confined shared space, what house rules you want to agree on first, how cleaning your shared bathroom shows respect for your roommate, why good cabin manners help support a relaxed rest time." }
+        }
+    },
+    5: {
+        part1: {
+            A: { title: "Unlocked Chemical Locker", task: "Write a message to your friend about a dangerous locker left open. Include: What unlocked storage door you saw in the alleyway, who you informed to lock it securely, why securing dangerous goods is important, what you learned about shipboard security." },
+            B: { title: "Night Watch Fatigue Challenge", task: "Write a message to your friend about staying awake past midnight. Include: How you felt during the 00:00 to 04:00 watch period, what strong coffee or stretching exercises helped you, why feeling sleepy is normal on night watches, how you hope to get more rest before the next watch." }
+        },
+        part2: {
+            A: { title: "Bunkering Oil Safely", task: "Write about how you will prevent oil spills during refueling operations. You should say: How you feel about monitoring the fuel tank levels, what oil absorbent pads and plugs you want to place first, how constant communication helps you avoid tank overflows, why following bunkering checklists supports environmental safety." },
+            B: { title: "Receiving Feedback from the Chief Cook", task: "Write about how you will improve your work based on kitchen feedback. You should say: How you feel when someone corrects your food preparation methods, what professional skills you hope to improve first, how listening to feedback shows respect for senior staff, why improving your kitchen duties is helpful for the entire crew's health." }
+        }
+    }
 };
 
-// UI state
+// ======================== LISTENING DATA (ALL 5 SETS – NO TRANSCRIPT DISPLAYED) ========================
+const listeningData = {
+    1: {
+        task2: {
+            title: "Short Conversations (6 dialogues)",
+            questions: [
+                "What worries the engineer?",
+                "Why did the cook change the menu?",
+                "Why is the meeting delayed?",
+                "What is the main reason Kim is tired?",
+                "Why is Liam happy?",
+                "What are they planning?"
+            ],
+            options: [
+                ["A. Navigation system", "B. Rising temperature", "C. Food supply"],
+                ["A. Supplies were limited", "B. To save money", "C. Not enough time"],
+                ["A. Someone is absent", "B. Work is not finished", "C. Captain changed plans"],
+                ["A. Worked overnight", "B. Feels unwell", "C. Exercised too much"],
+                ["A. Completed training", "B. Received praise", "C. Shorter shift"],
+                ["A. Training session", "B. Repair", "C. Celebration"]
+            ],
+            answers: ["B","A","B","A","B","B"]
+        },
+        task3: {
+            title: "Long Conversation (Chief Officer & Cadet)",
+            questions: [
+                "How does the chief officer feel about the cadet's work?",
+                "What does the cadet's action show?",
+                "What is the officer's attitude toward small problems?",
+                "Which best describes the cadet's personality?",
+                "What can we understand about the chief officer?",
+                "What does the chief officer suggest the cadet should do?"
+            ],
+            options: [
+                ["A. Cadet is improving", "B. Ready for more responsibility", "C. Pleased with problem-solving"],
+                ["A. Solves problems quickly", "B. Follows safety procedures carefully", "C. Tries to impress officer"],
+                ["A. Good for teamwork", "B. Should be taken seriously", "C. Good practice for learning"],
+                ["A. Attentive and responsible", "B. Friendly and helpful", "C. Confident and active"],
+                ["A. Focuses on strict rules", "B. Values teamwork", "C. Encourages learning through guidance"],
+                ["A. Check safety equipment", "B. Pay close attention and continue learning", "C. Report small problems later"]
+            ],
+            answers: ["B","B","B","A","C","B"]
+        }
+    },
+    2: {
+        task2: {
+            title: "Short Conversations (6 dialogues)",
+            questions: [
+                "What worries the chief mate?",
+                "Why did the cook change the menu?",
+                "Why is the meeting delayed?",
+                "Why is Kim tired?",
+                "Why is Liam happy?",
+                "What are they planning?"
+            ],
+            options: [
+                ["A. Navigation system", "B. Rising temperature", "C. Food supply"],
+                ["A. Supplies were limited", "B. To save money", "C. Not enough time"],
+                ["A. Someone is absent", "B. Work is not finished", "C. Captain changed plans"],
+                ["A. Worked overnight", "B. Feels unwell", "C. Exercised too much"],
+                ["A. Completed training", "B. Received praise", "C. Shorter shift"],
+                ["A. Training session", "B. Repair", "C. Celebration"]
+            ],
+            answers: ["A","B","C","B","A","A"]
+        },
+        task3: {
+            title: "Long Conversation (Chief Officer & Cadet)",
+            questions: [
+                "How does the officer feel about the cadet's work?",
+                "What does the cadet's action show?",
+                "What is the officer's attitude toward small problems?",
+                "Describe the cadet's personality.",
+                "What do we understand about the officer?",
+                "What does the officer suggest?"
+            ],
+            options: [
+                ["A. Cadet is improving", "B. Ready for more responsibility", "C. Pleased with problem-solving"],
+                ["A. Prefers to solve problems quickly", "B. Follows safety procedures carefully", "C. Tries to impress officer"],
+                ["A. Good for teamwork", "B. Should be taken seriously", "C. Good practice for learning"],
+                ["A. Attentive and responsible", "B. Friendly and helpful", "C. Confident and active"],
+                ["A. Focuses mainly on strict safety rules", "B. Values teamwork", "C. Encourages learning through guidance"],
+                ["A. Check safety equipment", "B. Pay close attention", "C. Report small problems later"]
+            ],
+            answers: ["C","A","C","C","A","A"]
+        }
+    },
+    3: {
+        task2: {
+            title: "Short Conversations (6 dialogues)",
+            questions: [
+                "What worries the engineer?",
+                "Why did the cook change the menu?",
+                "Why is the meeting delayed?",
+                "Why is Kim tired?",
+                "Why is Liam happy?",
+                "What are they planning?"
+            ],
+            options: [
+                ["A. Navigation system", "B. Rising temperature", "C. Food supply"],
+                ["A. Supplies were limited", "B. To save money", "C. Not enough time"],
+                ["A. Someone is absent", "B. Work is not finished", "C. Captain changed plans"],
+                ["A. Worked overnight", "B. Feels unwell", "C. Exercised too much"],
+                ["A. Completed training", "B. Received praise", "C. Shorter shift"],
+                ["A. Training session", "B. Repair", "C. Celebration"]
+            ],
+            answers: ["C","C","A","C","C","C"]
+        },
+        task3: {
+            title: "Long Conversation (Chief Officer & Cadet)",
+            questions: [
+                "How does the officer feel about the cadet's work?",
+                "What does the cadet's action show?",
+                "What is the attitude toward small problems?",
+                "Describe the cadet's personality.",
+                "What do we understand about the officer?",
+                "What does the officer suggest?"
+            ],
+            options: [
+                ["A. Cadet is improving", "B. Ready for more responsibility", "C. Pleased with problem-solving"],
+                ["A. Solves problems quickly", "B. Follows safety procedures carefully", "C. Tries to impress the officer"],
+                ["A. Useful for improving teamwork", "B. Should be taken seriously", "C. Good practice for learning"],
+                ["A. Attentive and responsible", "B. Friendly and helpful", "C. Confident and active"],
+                ["A. Focuses on strict rules", "B. Values teamwork and collaboration", "C. Encourages learning through guidance"],
+                ["A. Check safety equipment", "B. Pay close attention", "C. Report small problems later"]
+            ],
+            answers: ["A","C","A","B","B","C"]
+        }
+    },
+    4: {
+        task2: {
+            title: "Short Conversations (6 dialogues)",
+            questions: [
+                "What worries the speaker?",
+                "Why was the menu changed?",
+                "Why is the meeting delayed?",
+                "Why is Kim tired?",
+                "Why is Liam happy?",
+                "What are they planning?"
+            ],
+            options: [
+                ["A. Navigation system", "B. Rising temperature", "C. Food supply"],
+                ["A. Supplies were limited", "B. To save money", "C. Not enough time"],
+                ["A. Someone is absent", "B. Work is not finished", "C. Captain changed plans"],
+                ["A. Worked overnight", "B. Feels unwell", "C. Exercised too much"],
+                ["A. Completed training", "B. Received praise", "C. Shorter shift"],
+                ["A. Training session", "B. Repair", "C. Celebration"]
+            ],
+            answers: ["B","A","B","A","B","B"]
+        },
+        task3: {
+            title: "Long Conversation (Chief Officer & Cadet)",
+            questions: [
+                "How does the officer feel about the cadet's work?",
+                "What does the cadet's action show?",
+                "What is the attitude toward small problems?",
+                "Describe the cadet's personality.",
+                "What do we understand about the officer?",
+                "What does the officer suggest?"
+            ],
+            options: [
+                ["A. Cadet is improving", "B. Ready for more responsibility", "C. Pleased with problem-solving"],
+                ["A. Solves problems quickly", "B. Follows safety procedures carefully", "C. Tries to impress officer"],
+                ["A. Good for teamwork", "B. Should be taken seriously", "C. Good practice for learning"],
+                ["A. Attentive and responsible", "B. Friendly and helpful", "C. Confident and active"],
+                ["A. Focuses on strict rules", "B. Values teamwork", "C. Learning through guidance"],
+                ["A. Check safety equipment", "B. Pay close attention and continue learning", "C. Report small problems later"]
+            ],
+            answers: ["B","B","B","A","C","B"]
+        }
+    },
+    5: {
+        task2: {
+            title: "Short Conversations (6 dialogues)",
+            questions: [
+                "What worries the speaker?",
+                "Why did the cook change the menu?",
+                "Why is the meeting delayed?",
+                "Why is Kim tired?",
+                "Why is Liam happy?",
+                "What are they planning?"
+            ],
+            options: [
+                ["A. Navigation system", "B. Rising temperature", "C. Food supply"],
+                ["A. Supplies were limited", "B. To save money", "C. Not enough time"],
+                ["A. Someone is absent", "B. Work is not finished", "C. Captain changed plans"],
+                ["A. Worked overnight", "B. Feels unwell", "C. Exercised too much"],
+                ["A. Completed training", "B. Received praise", "C. Shorter shift"],
+                ["A. Training session", "B. Repair", "C. Celebration"]
+            ],
+            answers: ["B","C","A","B","A","A"]
+        },
+        task3: {
+            title: "Long Conversation (Chief Officer & Cadet)",
+            questions: [
+                "How does the officer feel about the cadet's work?",
+                "What does the cadet's action show?",
+                "What is the attitude toward small problems?",
+                "Describe the cadet's personality.",
+                "What do we understand about the officer?",
+                "What does the officer suggest?"
+            ],
+            options: [
+                ["A. Cadet is improving", "B. Ready for more responsibility", "C. Pleased with problem-solving"],
+                ["A. Solves problems quickly", "B. Follows safety procedures carefully", "C. Tries to impress officer"],
+                ["A. Useful for teamwork", "B. Should be taken seriously", "C. Good practice for learning new skills"],
+                ["A. Attentive and responsible", "B. Friendly and helpful", "C. Confident and active"],
+                ["A. Focuses on strict rules", "B. Values teamwork", "C. Encourages learning through guidance"],
+                ["A. Check safety equipment", "B. Pay close attention and continue learning", "C. Report small problems later"]
+            ],
+            answers: ["A","B","C","B","C","B"]
+        }
+    }
+};
+
+// ======================== UI HELPERS ========================
 let currentGrammarSet = 1;
 let currentReadingSet = 1;
-let grammarAnswers = {};
+let currentWritingSet = 1;
 
-// Helper: render grammar
+// GRAMMAR FUNCTIONS
 function loadGrammarSet(setNum) {
     const set = grammarData[setNum];
-    if(!set) return;
-    const container = document.getElementById('grammarQuestions');
+    if (!set) return;
     let html = '';
     set.questions.forEach((q, idx) => {
         html += `<div class="question"><p><strong>${idx+1}. ${q}</strong></p><div class="options">`;
@@ -334,26 +577,24 @@ function loadGrammarSet(setNum) {
         });
         html += `</div></div>`;
     });
-    container.innerHTML = html;
+    document.getElementById('grammarQuestions').innerHTML = html;
     document.getElementById('submitGrammarBtn').style.display = 'block';
     document.getElementById('grammarResult').innerHTML = '';
 }
-
 function submitGrammar() {
-    const setNum = currentGrammarSet;
-    const set = grammarData[setNum];
+    const set = grammarData[currentGrammarSet];
     let score = 0;
-    for(let i=0; i<set.questions.length; i++) {
+    for (let i = 0; i < set.questions.length; i++) {
         const selected = document.querySelector(`input[name="q${i}"]:checked`);
-        if(selected && selected.value === set.answers[i]) score++;
+        if (selected && selected.value === set.answers[i]) score++;
     }
-    document.getElementById('grammarResult').innerHTML = `<div class="result">✅ Your score: ${score}/${set.questions.length} (${Math.round(score/set.questions.length*100)}%)</div>`;
+    document.getElementById('grammarResult').innerHTML = `<div class="result">✅ Grammar Score: ${score}/${set.questions.length} (${Math.round(score/set.questions.length*100)}%)</div>`;
 }
 
-// Reading
+// READING FUNCTIONS
 function loadReadingSet(setNum) {
     const set = readingData[setNum];
-    if(!set) return;
+    if (!set) return;
     let html = '';
     set.passages.forEach((pass, pIdx) => {
         html += `<div class="reading-passage"><h3>${pass.title}</h3><p>${pass.text}</p>`;
@@ -368,52 +609,121 @@ function loadReadingSet(setNum) {
     document.getElementById('readingQuestions').innerHTML = html;
     document.getElementById('submitReadingBtn').style.display = 'block';
 }
-
 function submitReading() {
-    const setNum = currentReadingSet;
-    const set = readingData[setNum];
+    const set = readingData[currentReadingSet];
     let score = 0, total = 0;
     set.passages.forEach((pass, pIdx) => {
         pass.answers.forEach((ans, qIdx) => {
             total++;
             const select = document.getElementById(`read_${pIdx}_${qIdx}`);
-            if(select && select.value === ans) score++;
+            if (select && select.value === ans) score++;
         });
     });
     document.getElementById('readingResult').innerHTML = `<div class="result">📖 Reading Score: ${score}/${total}</div>`;
 }
 
-// Listening
-function loadListening() {
-    let html = '';
-    for(let i=1; i<=5; i++) {
-        const ls = listeningSets[i];
-        html += `<div class="reading-passage"><h3>Set ${i}: ${ls.title}</h3><p><em>Transcript:</em> ${ls.transcript}</p>`;
-        ls.questions.forEach((q, idx) => {
-            html += `<div class="question"><p>${idx+1}. ${q}</p>
-                     <select id="list_${i}_${idx}"><option value="">Select</option>
-                     <option value="T">True (T)</option><option value="F">False (F)</option>
-                     <option value="D">Doesn't Say (D)</option></select></div>`;
-        });
-        html += `</div>`;
-    }
-    document.getElementById('listeningSets').innerHTML = html;
+// WRITING FUNCTIONS
+function loadWritingSet(setNum) {
+    const set = writingSets[setNum];
+    if (!set) return;
+    let html = `
+        <div class="writing-container">
+            <div class="writing-part">
+                <h3>📝 Part 1 (about 25 words) – Choose ONE option</h3>
+                <div class="writing-options">
+                    <div class="option-card">
+                        <h4>Option A: ${set.part1.A.title}</h4>
+                        <p><strong>Task:</strong> ${set.part1.A.task}</p>
+                        <textarea placeholder="Your answer here (approx. 25 words)..." rows="4" id="writingPart1A"></textarea>
+                    </div>
+                    <div class="option-card">
+                        <h4>Option B: ${set.part1.B.title}</h4>
+                        <p><strong>Task:</strong> ${set.part1.B.task}</p>
+                        <textarea placeholder="Your answer here (approx. 25 words)..." rows="4" id="writingPart1B"></textarea>
+                    </div>
+                </div>
+                <h3>📝 Part 2 (80–100 words) – Choose ONE topic</h3>
+                <div class="writing-options">
+                    <div class="option-card">
+                        <h4>Option A: ${set.part2.A.title}</h4>
+                        <p>${set.part2.A.task}</p>
+                        <textarea placeholder="Write your short essay (80-100 words)..." rows="6" id="writingPart2A"></textarea>
+                    </div>
+                    <div class="option-card">
+                        <h4>Option B: ${set.part2.B.title}</h4>
+                        <p>${set.part2.B.task}</p>
+                        <textarea placeholder="Write your short essay (80-100 words)..." rows="6" id="writingPart2B"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    document.getElementById('writingContent').innerHTML = html;
 }
 
+// LISTENING FUNCTIONS (NO TRANSCRIPT, ONLY AUDIO PLAYER + QUESTIONS)
+function audioPlayer(setNum, taskType, instruction = "Listen to the audio (you may play it twice)") {
+    const audioFile = `listening_audio/SET${setNum}${taskType}.mp3`;
+    return `
+        <div class="audio-container">
+            <p><em>${instruction}</em></p>
+            <audio controls style="width:100%; margin:10px 0;">
+                <source src="${audioFile}" type="audio/mpeg">
+                Your browser does not support audio. Please use a different browser.
+            </audio>
+        </div>
+    `;
+}
+function loadListeningSet(setNum) {
+    const set = listeningData[setNum];
+    if (!set) return;
+    let html = `<div class="listening-set">`;
+    // Task 2
+    html += `<div class="listening-task"><h3>Task 2: ${set.task2.title}</h3>`;
+    html += audioPlayer(setNum, "TASK2", "Listen to the 6 short conversations. You may play the audio twice.");
+    for (let i = 0; i < set.task2.questions.length; i++) {
+        html += `<div class="question"><p><strong>${i+1}. ${set.task2.questions[i]}</strong></p><div class="options">`;
+        set.task2.options[i].forEach(opt => {
+            let letter = opt.charAt(0);
+            html += `<label><input type="radio" name="t2_q${i}" value="${letter}"> ${opt}</label>`;
+        });
+        html += `</div></div>`;
+    }
+    html += `</div>`;
+    // Task 3
+    html += `<div class="listening-task"><h3>Task 3: ${set.task3.title}</h3>`;
+    html += audioPlayer(setNum, "TASK3", "Listen to the conversation. You may play the audio twice.");
+    for (let i = 0; i < set.task3.questions.length; i++) {
+        html += `<div class="question"><p><strong>${i+1}. ${set.task3.questions[i]}</strong></p><div class="options">`;
+        set.task3.options[i].forEach(opt => {
+            let letter = opt.charAt(0);
+            html += `<label><input type="radio" name="t3_q${i}" value="${letter}"> ${opt}</label>`;
+        });
+        html += `</div></div>`;
+    }
+    html += `</div></div>`;
+    document.getElementById('listeningContent').innerHTML = html;
+}
 function submitListening() {
-    let totalScore = 0, totalQ = 0;
-    for(let i=1; i<=5; i++) {
-        const ls = listeningSets[i];
-        ls.answers.forEach((ans, idx) => {
-            totalQ++;
-            const select = document.getElementById(`list_${i}_${idx}`);
-            if(select && select.value === ans) totalScore++;
-        });
+    const setNum = parseInt(document.getElementById('listeningSetSelect').value);
+    const set = listeningData[setNum];
+    let score = 0, total = 0;
+    // Task 2
+    for (let i = 0; i < set.task2.answers.length; i++) {
+        total++;
+        let selected = document.querySelector(`input[name="t2_q${i}"]:checked`);
+        if (selected && selected.value === set.task2.answers[i]) score++;
     }
-    document.getElementById('listeningResult').innerHTML = `<div class="result">🎧 Listening Score: ${totalScore}/${totalQ}</div>`;
+    // Task 3
+    for (let i = 0; i < set.task3.answers.length; i++) {
+        total++;
+        let selected = document.querySelector(`input[name="t3_q${i}"]:checked`);
+        if (selected && selected.value === set.task3.answers[i]) score++;
+    }
+    document.getElementById('listeningResult').innerHTML = `<div class="result">🎧 Listening Score: ${score}/${total} (${Math.round(score/total*100)}%)</div>`;
 }
 
-// Event listeners
+// ======================== EVENT LISTENERS ========================
 document.getElementById('loadGrammarBtn').onclick = () => {
     currentGrammarSet = parseInt(document.getElementById('grammarSetSelect').value);
     loadGrammarSet(currentGrammarSet);
@@ -424,23 +734,41 @@ document.getElementById('loadReadingBtn').onclick = () => {
     loadReadingSet(currentReadingSet);
 };
 document.getElementById('submitReadingBtn').onclick = submitReading;
+document.getElementById('loadWritingBtn').onclick = () => {
+    const setNum = parseInt(document.getElementById('writingSetSelect').value);
+    loadWritingSet(setNum);
+};
+document.getElementById('loadListeningBtn').onclick = () => {
+    const setNum = parseInt(document.getElementById('listeningSetSelect').value);
+    loadListeningSet(setNum);
+    document.getElementById('listeningResult').innerHTML = '';
+};
 document.getElementById('submitListeningBtn').onclick = submitListening;
 
-// Tab switching
+// TAB SWITCHING
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
         document.getElementById(btn.dataset.tab).classList.add('active');
-        if(btn.dataset.tab === 'listening') loadListening();
-        if(btn.dataset.tab === 'reading' && currentReadingSet) loadReadingSet(currentReadingSet);
+        // Preload content for listening if empty
+        if (btn.dataset.tab === 'listening' && !document.getElementById('listeningContent').innerHTML) {
+            loadListeningSet(1);
+        }
+        if (btn.dataset.tab === 'reading' && !document.getElementById('readingQuestions').innerHTML) {
+            loadReadingSet(1);
+        }
+        if (btn.dataset.tab === 'writing' && !document.getElementById('writingContent').innerHTML) {
+            loadWritingSet(1);
+        }
     });
 });
 
-// Load default grammar set 1 on page load
+// INITIAL LOADS
 window.onload = () => {
     loadGrammarSet(1);
     loadReadingSet(1);
-    loadListening();
+    loadWritingSet(1);
+    loadListeningSet(1);
 };
