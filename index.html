@@ -1,124 +1,131 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEPT – Maritime English Test</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>⚓ Maritime English Proficiency Test (MEPT)</h1>
-        <p>Grammar | Reading | Writing | Listening | Speaking</p>
-    </header>
+import asyncio
+import sys
+import logging
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, WebAppInfo
+from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
-    <nav class="tabs">
-        <button class="tab-btn active" data-tab="grammar">📖 Grammar (20 marks)</button>
-        <button class="tab-btn" data-tab="reading">📰 Reading (15 marks)</button>
-        <button class="tab-btn" data-tab="writing">✍️ Writing (30 marks)</button>
-        <button class="tab-btn" data-tab="listening">🎧 Listening (25 marks)</button>
-        <button class="tab-btn" data-tab="speaking">🗣️ Speaking</button>
-    </nav>
+# ======================== CONFIGURATION ========================
+TOKEN = "8725396308:AAEcdfjIhkhMz6JrW_Es3YAY-advVUj9xoY"
+# သင့် Web App ရဲ့ အများပြည်သူ URL (GitHub Pages ပေါ်က)
+WEB_APP_URL = "https://yourusername.github.io/mept-test-app/"  # <--- ဒီနေရာမှာ သင့် URL ထည့်ပါ
 
-    <!-- GRAMMAR SECTION -->
-    <div id="grammar" class="tab-content active">
-        <div class="set-selector">
-            <label>📌 Select Grammar Set: </label>
-            <select id="grammarSetSelect">
-                <option value="1">Set 1 (Document)</option>
-                <option value="2">Set 2 (Practice)</option>
-                <option value="3">Set 3 (Practice)</option>
-                <option value="4">Set 4 (Practice)</option>
-                <option value="5">Set 5 (Practice)</option>
-            </select>
-            <button id="loadGrammarBtn">Load Questions</button>
-        </div>
-        <div id="grammarQuestions"></div>
-        <button id="submitGrammarBtn" style="display:none;">✔️ Submit Answers</button>
-        <div id="grammarResult"></div>
-    </div>
+# Subscription အတွက် သတ်မှတ်ချက် (ရိုးရှင်းစေရန် user_id ကို မှတ်ထားမယ်)
+# ပုံမှန်အားဖြင့် Database (SQLite) သုံးသင့်တယ်။ ဒီမှာ demo အနေနဲ့ dictionary သုံးထားတယ်
+subscribed_users = set()  # ရှင်းရှင်းလင်းလင်း temporary storage ပါ။ စစ်မှန်တဲ့ bot အတွက် persistent DB လိုပါမယ်။
 
-    <!-- READING SECTION -->
-    <div id="reading" class="tab-content">
-        <div class="set-selector">
-            <label>📌 Select Reading Set: </label>
-            <select id="readingSetSelect">
-                <option value="1">Set 1</option>
-                <option value="2">Set 2</option>
-                <option value="3">Set 3</option>
-                <option value="4">Set 4</option>
-                <option value="5">Set 5</option>
-            </select>
-            <button id="loadReadingBtn">Load Passages & Questions</button>
-        </div>
-        <div id="readingQuestions"></div>
-        <button id="submitReadingBtn" style="display:none;">✔️ Submit Reading Answers</button>
-        <div id="readingResult"></div>
-    </div>
+logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 
-    <!-- WRITING SECTION -->
-    <div id="writing" class="tab-content">
-        <h2>✍️ Writing Tasks (30 marks)</h2>
-        <p><em>Write your answers in the boxes below. Check grammar and maritime terms.</em></p>
-        <div class="writing-container">
-            <div class="writing-part">
-                <h3>📝 Part 1 (about 25 words) – Choose ONE option</h3>
-                <div class="writing-options">
-                    <div class="option-card">
-                        <h4>Option A: Hand Tool Safety</h4>
-                        <p>Write to a friend about using tools safely on deck. Include: broken tool seen, reported to, why fixing quickly important, safety rule remembered.</p>
-                        <textarea placeholder="Your answer..." rows="4"></textarea>
-                    </div>
-                    <div class="option-card">
-                        <h4>Option B: Cold Weather Challenge</h4>
-                        <p>Write about working in cold weather during watch. Include: feeling in freezing wind, heavy clothes/drinks, why cold normal on North routes, gear for next time.</p>
-                        <textarea placeholder="Your answer..." rows="4"></textarea>
-                    </div>
-                </div>
-                <h3>📝 Part 2 (80–100 words) – Choose ONE topic</h3>
-                <div class="writing-options">
-                    <div class="option-card">
-                        <h4>Option A: Keeping Deck Clean</h4>
-                        <p>How you maintain housekeeping, cleaning oily surfaces, focus tasks, avoid slipping, why clean workspace supports safety.</p>
-                        <textarea placeholder="Your answer..." rows="6"></textarea>
-                    </div>
-                    <div class="option-card">
-                        <h4>Option B: Learning Ship Routines</h4>
-                        <p>Adapting to daily schedule, waking early, mastering routines, showing dedication, following orders, why quick learning helpful.</p>
-                        <textarea placeholder="Your answer..." rows="6"></textarea>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+# ======================== BOT COMMANDS ========================
+async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """/start command - ပင်မမီနူး"""
+    user_id = update.effective_user.id
+    keyboard = [
+        [InlineKeyboardButton("📚 Start MEPT Test", web_app=WebAppInfo(url=WEB_APP_URL))],
+        [InlineKeyboardButton("⭐ Subscribe (Premium)", callback_data="subscribe")],
+        [InlineKeyboardButton("ℹ️ Help", callback_data="help")],
+        [InlineKeyboardButton("❌ Exit", callback_data="exit")]
+    ]
+    reply_markup = InlineKeyboardMarkup(keyboard)
+    welcome_text = (
+        "⚓ *Maritime English Test Bot*\n\n"
+        "Welcome aboard! Click the button below to open the test web app.\n"
+        "You can take grammar, reading, listening and writing tests.\n\n"
+        f"Subscription status: {'✅ Subscribed' if user_id in subscribed_users else '❌ Not subscribed'}\n"
+        "Subscribe to unlock all features."
+    )
+    await update.message.reply_text(welcome_text, parse_mode="Markdown", reply_markup=reply_markup)
 
-    <!-- LISTENING SECTION -->
-    <div id="listening" class="tab-content">
-        <h2>🎧 Listening Comprehension (25 marks)</h2>
-        <p>Read the transcripts (or listen to audio if provided) and answer True/False/Doesn't Say.</p>
-        <div id="listeningSets"></div>
-        <button id="submitListeningBtn">Submit Listening Answers</button>
-        <div id="listeningResult"></div>
-    </div>
+async def handle_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    query = update.callback_query
+    await query.answer()
+    data = query.data
+    user_id = update.effective_user.id
 
-    <!-- SPEAKING SECTION -->
-    <div id="speaking" class="tab-content">
-        <h2>🗣️ Speaking Test (In-person – 15 minutes)</h2>
-        <p>Practice with a partner or record yourself. Topics:</p>
-        <ul>
-            <li>Introduce yourself (rank, duties, experience)</li>
-            <li>Describe a fire drill procedure</li>
-            <li>Give navigational commands ("Steer 270 degrees")</li>
-            <li>Report an engine problem using SMCP</li>
-            <li>Explain enclosed space entry safety</li>
-        </ul>
-        <p><strong>Self-assessment:</strong> Speak clearly, use correct maritime vocabulary.</p>
-    </div>
+    if data == "subscribe":
+        # Subscription လုပ်ရန် လမ်းညွှန် (Telegram Stars ဖြင့်လည်းရနိုင်)
+        await query.edit_message_text(
+            "⭐ *Subscription Plan*\n\n"
+            "To access all premium features (full tests, listening audio, etc.), please pay 10 Stars.\n\n"
+            "1. Click the button below to pay with Telegram Stars.\n"
+            "2. After payment, your account will be activated.\n\n"
+            "👉 [Pay with Stars](https://t.me/BotFather?start=payment)",  # ဒီနေရာတွင် သင်၏ payment bot link ထည့်ပါ
+            parse_mode="Markdown",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Back", callback_data="back_to_menu")]])
+        )
+        # လက်တွေ့တွင် payment confirmation အတွက် webhook ထည့်ရမည်
+    elif data == "help":
+        await query.edit_message_text(
+            "ℹ️ *Help*\n\n"
+            "• Tap 'Start MEPT Test' to open the test web app.\n"
+            "• Answer all questions. Your score will be shown.\n"
+            "• To exit the web app, press the 'Exit' button inside the app.\n"
+            "• If you have any problem, contact your instructor.\n\n"
+            "Good luck! ⚓",
+            parse_mode="Markdown",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Back", callback_data="back_to_menu")]])
+        )
+    elif data == "exit":
+        # ပင်မမီနူးသို့ ပြန်သွားရန်
+        await query.edit_message_text(
+            "You have exited the menu. Send /start again to return.",
+            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Restart Bot", callback_data="restart")]])
+        )
+    elif data == "restart":
+        await start(update, context)
+    elif data == "back_to_menu":
+        await start(update, context)  # ပြန်လည် /start လုပ်သကဲ့သို့
 
-    <footer>
-        <p>⚓ MEPT Preparation – All sets based on official syllabus | <a href="#" style="color:white;">Telegram Bot: @MEPT_Exam_Bot</a></p>
-    </footer>
+async def web_app_data(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    """Web App မှ data လက်ခံရန် (စာမေးပွဲရမှတ်ပေးပို့လျှင်)"""
+    data = update.effective_message.web_app_data
+    if data:
+        await update.message.reply_text(f"📊 Web App sent: {data.data}")
+        # ဒီနေရာမှာ ရမှတ်တွေကို database သို့မှတ်သားနိုင်သည်။
 
-    <script src="script.js"></script>
-</body>
-</html>
+def main():
+    app = Application.builder().token(TOKEN).build()
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CallbackQueryHandler(handle_callback))
+    app.add_handler(MessageHandler(filters.StatusUpdate.WEB_APP_DATA, web_app_data))  # type: ignore
+
+    print("🤖 Bot is running with Web App support...")
+    app.run_polling()
+
+if __name__ == "__main__":
+    main()
+
+    <!-- Telegram Web App Integration -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<script>
+    // Initialize Telegram WebApp
+    const tg = window.Telegram.WebApp;
+    tg.expand(); // အပြည့်အဝ ဖွင့်ရန်
+    tg.ready();
+
+    // Exit button ဖန်တီးခြင်း
+    const exitBtn = document.createElement('button');
+    exitBtn.innerText = '❌ Exit Test';
+    exitBtn.style.position = 'fixed';
+    exitBtn.style.bottom = '20px';
+    exitBtn.style.right = '20px';
+    exitBtn.style.padding = '12px 24px';
+    exitBtn.style.backgroundColor = '#dc3545';
+    exitBtn.style.color = 'white';
+    exitBtn.style.border = 'none';
+    exitBtn.style.borderRadius = '8px';
+    exitBtn.style.cursor = 'pointer';
+    exitBtn.style.zIndex = '1000';
+    exitBtn.onclick = () => {
+        tg.close(); // Telegram Web App ကိုပိတ်မယ်
+    };
+    document.body.appendChild(exitBtn);
+
+    // Subscription စစ်ဆေးရန် Bot ကို data ပေးပို့နိုင်သည် (optional)
+    // ဥပမာ user score ကို bot သို့ပို့လျှင်
+    function sendResult(score) {
+        tg.sendData(JSON.stringify({ score: score, test: "MEPT" }));
+    }
+
+    // စာမေးပွဲပြီးသွားလျှင် sendResult(ရမှတ်) ခေါ်ပါ။ ရှိပြီးသား submit functions ထဲထည့်နိုင်သည်။
+    // ဥပမာ submitGrammar ထဲမှာ sendResult(score) ထည့်နိုင်သည်။
+</script>

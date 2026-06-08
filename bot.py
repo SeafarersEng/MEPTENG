@@ -1,17 +1,22 @@
 import asyncio
+import sys
 import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 
-# Your Telegram Bot Token
+# Your bot token
 TOKEN = "8725396308:AAEcdfjIhkhMz6JrW_Es3YAY-advVUj9xoY"
+
+# Fix for Windows + Python 3.14
+if sys.platform == "win32" and hasattr(asyncio, "WindowsSelectorEventLoopPolicy"):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     level=logging.INFO
 )
 
-# Grammar questions – Set 1 (first 20 questions from your document)
+# Grammar questions (Set 1 – 20 questions)
 grammar_questions = {
     1: {"text": "1. The crew ________ the deck every morning.", "options": ["clean", "cleans", "cleaning"], "answer": "cleans"},
     2: {"text": "2. The ship will leave the port ________ 5 p.m.", "options": ["in", "at", "on"], "answer": "at"},
@@ -38,29 +43,24 @@ grammar_questions = {
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
         "⚓ *MEPT Grammar Trainer Bot*\n\n"
-        "I will test your English grammar for the Maritime exam.\n"
         "Type /grammar to start the 20-question test.\n"
-        "Type /help for more info.",
+        "Type /help for commands.",
         parse_mode="Markdown"
     )
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
-        "How to use:\n"
-        "- /grammar → start a new test (20 questions from Set 1)\n"
-        "- Choose the correct option by tapping on a button.\n"
-        "- Your score will be shown at the end.\n\n"
+        "/grammar – Start a new test (20 questions)\n"
+        "Choose answers by tapping the buttons.\n"
         "Good luck! ⚓"
     )
 
 async def grammar_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # Reset user data
     context.user_data["q_index"] = 1
     context.user_data["score"] = 0
     q = grammar_questions[1]
     keyboard = [[InlineKeyboardButton(opt, callback_data=opt)] for opt in q["options"]]
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    await update.message.reply_text(q["text"], reply_markup=reply_markup)
+    await update.message.reply_text(q["text"], reply_markup=InlineKeyboardMarkup(keyboard))
 
 async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -70,42 +70,43 @@ async def button_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if idx not in grammar_questions:
         await query.edit_message_text("Test already finished. Type /grammar to start over.")
         return
-
     correct = grammar_questions[idx]["answer"]
     if user_choice == correct:
         context.user_data["score"] += 1
-        await query.edit_message_text(f"✅ Correct! +1 point. (Current score: {context.user_data['score']})")
+        await query.edit_message_text(f"✅ Correct! Score: {context.user_data['score']}")
     else:
-        await query.edit_message_text(f"❌ Wrong! Correct answer: *{correct}*. (Score: {context.user_data['score']})", parse_mode="Markdown")
-
+        await query.edit_message_text(f"❌ Wrong! Correct: {correct}. Score: {context.user_data['score']}")
     next_idx = idx + 1
     if next_idx in grammar_questions:
         context.user_data["q_index"] = next_idx
         q_next = grammar_questions[next_idx]
         keyboard = [[InlineKeyboardButton(opt, callback_data=opt)] for opt in q_next["options"]]
-        reply_markup = InlineKeyboardMarkup(keyboard)
-        await query.message.reply_text(q_next["text"], reply_markup=reply_markup)
+        await query.message.reply_text(q_next["text"], reply_markup=InlineKeyboardMarkup(keyboard))
     else:
-        final_score = context.user_data["score"]
+        final = context.user_data["score"]
         total = len(grammar_questions)
         await query.message.reply_text(
-            f"🏁 *Test completed!*\nYour final score: {final_score}/{total} ({final_score/total*100:.1f}%)\n"
-            "Type /grammar to try again.",
-            parse_mode="Markdown"
+            f"🏁 Test completed!\nFinal score: {final}/{total} ({final/total*100:.1f}%)\n"
+            "Type /grammar to try again."
         )
         context.user_data.clear()
 
-def main():
-    # Build the application with updated API
+async def main():
     app = Application.builder().token(TOKEN).build()
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_command))
     app.add_handler(CommandHandler("grammar", grammar_test))
     app.add_handler(CallbackQueryHandler(button_callback))
-
-    # Start the bot (using run_polling with proper asyncio handling)
     print("🤖 Bot is running... Press Ctrl+C to stop.")
-    app.run_polling(allowed_updates=Update.ALL_TYPES)
+    await app.initialize()
+    await app.start()
+    await app.updater.start_polling()
+    # Keep alive
+    try:
+        while True:
+            await asyncio.sleep(1)
+    except KeyboardInterrupt:
+        await app.stop()
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
